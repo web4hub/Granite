@@ -36,11 +36,11 @@ This is a simple example of how to use Granite-4.1-3B model.
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-device = "auto"
+device = "cuda" if torch.cuda.is_available() else "cpu"
 model_path = "ibm-granite/granite-4.1-3b"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 # drop device_map if running on CPU
-model = AutoModelForCausalLM.from_pretrained(model_path, device_map=device)
+model = AutoModelForCausalLM.from_pretrained(model_path, device_map="auto")
 model.eval()
 # change input text as desired
 chat = [
